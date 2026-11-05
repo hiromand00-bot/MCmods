@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MCmods — mods, modpacks, shaders, resource packs & data packs</title>
+    <meta
+      name="description"
+      content="MCmods is a fast Minecraft content browser with live feeds from Modrinth and CurseForge. Browse mods, resource packs, data packs, shaders and modpacks, filter by loader, game version and category, then open a project page for files and changelogs."
+    />
+    <meta name="theme-color" content="#0a1410" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="aurora" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="" data-view-link="browse">
+          <img class="brand-mark" src="favicon.svg" alt="" width="36" height="36" />
+          <span class="brand-name">MCmods</span>
+        </a>
+
+        <form class="search" id="search-form" role="search">
+          <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-3.6-3.6" />
+          </svg>
+          <input
+            id="search-input"
+            type="search"
+            name="q"
+            placeholder="Search mods, modpacks, shaders…"
+            data-i18n-attr="placeholder:search.placeholder;aria-label:search.placeholder"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Search projects"
+          />
+          <button class="search-submit" type="submit" data-i18n="search.submit">Search</button>
+        </form>
+
+        <nav class="nav" aria-label="Sections">
+          <button class="nav-btn is-active" type="button" data-view-link="browse" data-i18n="nav.browse">Browse</button>
+          <button class="nav-btn" type="button" data-view-link="favorites">
+            <span data-i18n="nav.favorites">Favorites</span>
+            <span class="nav-count" id="fav-count">0</span>
+          </button>
+          <a class="nav-btn" href="bedrock.html" data-i18n="nav.bedrock">Bedrock</a>
+          <a class="nav-btn" href="account.html" data-i18n="nav.account">Account</a>
+        </nav>
+
+        <label class="lang-wrap">
+          <span class="visually-hidden">Language</span>
+          <select class="lang-select" data-lang-select aria-label="Language"></select>
+        </label>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <div class="welcome-strip" id="welcome-strip" hidden>
+        <span data-welcome-note data-i18n="welcome.body">Welcome to MCmods.</span>
+        <button class="ghost-btn" type="button" data-welcome-hide aria-label="Dismiss">✕</button>
+      </div>
+
+      <section id="view-browse" class="view">
+        <section class="hero">
+          <p class="eyebrow"><span class="pulse" aria-hidden="true"></span> Modrinth + CurseForge, side by side</p>
+          <h1 data-i18n-html="hero.title">Find the content your<br /><span class="grad">world is missing</span></h1>
+          <p class="lede" data-i18n-html="hero.lede">
+            One dark-green home for everything Minecraft:
+            <strong>mods, resource packs, data packs, shaders and modpacks</strong>. Search and filter across both big
+            platforms, then grab the file you need. The live feed drops 10 fresh projects every minute.
+          </p>
+          <div class="hero-stats">
+            <div class="stat-card">
+              <span class="stat-num" id="stat-mods">—</span>
+              <span class="stat-label" data-i18n="stat.projects">projects in the index</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-num" id="stat-sources">2</span>
+              <span class="stat-label" data-i18n="stat.platforms">mod platforms</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-num">60s</span>
+              <span class="stat-label" data-i18n="stat.refresh">feed refresh</span>
+            </div>
+          </div>
+        </section>
+
+        <div class="type-tabs" id="type-tabs" role="tablist" aria-label="Project type">
+          <button class="type-tab is-active" type="button" role="tab" aria-selected="true" data-type="mods" data-i18n="tab.mods">Mods</button>
+          <button class="type-tab" type="button" role="tab" aria-selected="false" data-type="resourcepacks" data-i18n="tab.resourcepacks">Resource packs</button>
+          <button class="type-tab" type="button" role="tab" aria-selected="false" data-type="datapacks" data-i18n="tab.datapacks">Data packs</button>
+          <button class="type-tab" type="button" role="tab" aria-selected="false" data-type="shaders" data-i18n="tab.shaders">Shaders</button>
+          <button class="type-tab" type="button" role="tab" aria-selected="false" data-type="modpacks" data-i18n="tab.modpacks">Modpacks</button>
+        </div>
+
+        <p class="banner" id="cf-banner" hidden></p>
+
+        <section class="feed-block" aria-labelledby="feed-title">
+          <div class="section-head">
+            <div>
+              <h2 id="feed-title">Live feed</h2>
+              <p class="section-sub" id="feed-sub" data-i18n="feed.sub">10 fresh projects pulled every minute from the platforms.</p>
+            </div>
+            <div class="feed-meta">
+              <span class="live-dot" aria-hidden="true"></span>
+              <span id="feed-status">starting…</span>
+              <button class="ghost-btn" type="button" id="feed-refresh" data-i18n="feed.refresh">Refresh now</button>
+            </div>
+          </div>
+          <div class="feed-progress" aria-hidden="true"><span id="feed-bar"></span></div>
+          <div class="feed-row" id="feed-row"></div>
+        </section>
+
+        <section class="browse">
+          <aside class="filters" aria-label="Filters">
+            <div class="filter-group">
+              <h3 data-i18n="filter.source">Source</h3>
+              <div class="chips" id="source-chips">
+                <button class="chip is-on" type="button" data-source="all" data-i18n="source.all">All</button>
+                <button class="chip" type="button" data-source="modrinth">Modrinth</button>
+                <button class="chip" type="button" data-source="curseforge">CurseForge</button>
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <h3 data-i18n="filter.sort">Sort by</h3>
+              <select id="sort-select">
+                <option value="relevance" data-i18n="sort.relevance">Relevance</option>
+                <option value="downloads" data-i18n="sort.downloads">Downloads</option>
+                <option value="follows" data-i18n="sort.follows">Followers</option>
+                <option value="newest" data-i18n="sort.newest">Newest</option>
+                <option value="updated" data-i18n="sort.updated">Recently updated</option>
+              </select>
+            </div>
+
+            <div class="filter-group" id="loader-group">
+              <h3 data-i18n="filter.loader">Mod loader</h3>
+              <div class="chips" id="loader-chips"></div>
+            </div>
+
+            <div class="filter-group">
+              <h3 data-i18n="filter.version">Game version</h3>
+              <select id="version-select">
+                <option value="" data-i18n="filter.anyVersion">Any version</option>
+              </select>
+            </div>
+
+            <div class="filter-group" id="category-group">
+              <h3 data-i18n="filter.categories">Categories</h3>
+              <div class="chips" id="category-chips"></div>
+            </div>
+
+            <button class="clear-btn" type="button" id="clear-filters" data-i18n="filter.clear">Clear all filters</button>
+          </aside>
+
+          <div class="results">
+            <div class="section-head results-head">
+              <div>
+                <h2 id="results-title">Popular mods</h2>
+                <p class="section-sub" id="results-count">&nbsp;</p>
+              </div>
+            </div>
+            <p class="status" id="results-status" hidden></p>
+            <div class="grid" id="grid"></div>
+            <div class="more-wrap">
+              <button class="load-more" type="button" id="load-more" hidden>Load more</button>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section id="view-favorites" class="view" hidden>
+        <div class="section-head">
+          <div>
+            <h2 data-i18n="fav.title">Your favorites</h2>
+            <p class="section-sub" data-i18n="fav.sub">Saved in this browser. Click a card to open it again.</p>
+          </div>
+        </div>
+        <p class="status" id="favorites-empty" hidden data-i18n="fav.empty">
+          Nothing saved yet — tap the heart on any card.
+        </p>
+        <div class="grid" id="favorites-grid"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p data-i18n="footer.about">
+          MCmods is an independent browser. Project data and downloads come from Modrinth and CurseForge, and every
+          download points back to the original project.
+        </p>
+        <p class="muted" data-i18n="footer.legal">Not affiliated with Mojang, Microsoft, Modrinth or CurseForge.</p>
+      </div>
+    </footer>
+
+    <dialog id="welcome-dialog" class="welcome-dialog">
+      <div class="welcome-inner">
+        <span class="welcome-badge">MCmods</span>
+        <h2 data-i18n="welcome.title">Welcome to MCmods</h2>
+        <p data-i18n="welcome.body">
+          Browse mods, resource packs, data packs, shaders and modpacks for Java — plus a separate Bedrock page. The live
+          feed drops 10 fresh projects every minute.
+        </p>
+        <div class="welcome-actions">
+          <button class="btn btn--primary" type="button" data-welcome-start data-i18n="welcome.start">Start browsing</button>
+          <button class="ghost-btn" type="button" data-welcome-dismiss data-i18n="welcome.dismiss">Don't show again</button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog id="mod-dialog" class="mod-dialog">
+      <div id="modal-body"></div>
+    </dialog>
+
+    <script src="i18n.js"></script>
+    <script src="welcome.js"></script>
+    <script src="standalone-shim.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

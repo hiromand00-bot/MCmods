@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MCmods — account and project submissions</title>
+    <meta name="description" content="Sign in with Google, Microsoft or GitHub and submit your Minecraft project to MCmods for review." />
+    <meta name="theme-color" content="#0a1410" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="aurora" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="">
+          <img class="brand-mark" src="favicon.svg" alt="" width="36" height="36" />
+          <span class="brand-name">MCmods</span>
+        </a>
+        <nav class="nav" aria-label="Sections">
+          <a class="nav-btn" href="" data-i18n="nav.browse">Browse</a>
+          <a class="nav-btn" href="bedrock.html" data-i18n="nav.bedrock">Bedrock</a>
+          <a class="nav-btn is-active" href="account.html" data-i18n="nav.account">Account</a>
+        </nav>
+        <label class="lang-wrap">
+          <span class="visually-hidden">Language</span>
+          <select class="lang-select" data-lang-select></select>
+        </label>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="hero hero--compact">
+        <p class="eyebrow">MCmods</p>
+        <h1 data-i18n="account.title">Your account</h1>
+        <p class="lede" data-i18n="account.sub">
+          Sign in with Google, Microsoft or GitHub and send your own project for review.
+        </p>
+      </section>
+
+      <section class="panel account-card">
+        <div class="account-head">
+          <span class="account-avatar" id="account-avatar" aria-hidden="true">?</span>
+          <div>
+            <strong id="account-email" data-i18n="account.guest">Not signed in</strong>
+            <p class="muted small" id="account-hint"></p>
+          </div>
+          <button class="ghost-btn" type="button" id="signout-btn" hidden data-i18n="account.signout">Sign out</button>
+        </div>
+
+        <div class="provider-row" id="provider-row">
+          <button class="provider-btn" type="button" data-provider="google">
+            <img src="assets/providers/google.svg" alt="" width="20" height="20" />
+            <span>Google</span>
+          </button>
+          <button class="provider-btn" type="button" data-provider="microsoft">
+            <img src="assets/providers/microsoft.svg" alt="" width="20" height="20" />
+            <span>Microsoft</span>
+          </button>
+          <button class="provider-btn" type="button" data-provider="github">
+            <img src="assets/providers/github.svg" alt="" width="20" height="20" />
+            <span>GitHub</span>
+          </button>
+        </div>
+
+        <p class="banner banner--soft" id="setup-note" hidden data-i18n="account.setup">
+          Sign-in is not configured yet. Add your OAuth app IDs and a token endpoint (see README → Accounts), or send
+          your project by GitHub issue or email.
+        </p>
+      </section>
+
+      <section class="panel">
+        <h2 data-i18n="account.submit">Submit a project</h2>
+        <form id="submit-form" class="stack" novalidate>
+          <label class="field">
+            <span data-i18n="account.name">Project name</span>
+            <input id="field-name" name="name" type="text" required maxlength="120" />
+          </label>
+          <label class="field">
+            <span data-i18n="account.link">Project link</span>
+            <input id="field-url" name="url" type="url" required placeholder="https://modrinth.com/…" />
+          </label>
+          <label class="field">
+            <span data-i18n="account.type">Type</span>
+            <select id="field-type" name="type">
+              <option value="mods">Mods</option>
+              <option value="resourcepacks">Resource packs</option>
+              <option value="datapacks">Data packs</option>
+              <option value="shaders">Shaders</option>
+              <option value="modpacks">Modpacks</option>
+              <option value="bedrock">Bedrock add-on</option>
+            </select>
+          </label>
+          <label class="field">
+            <span data-i18n="account.desc">Short description</span>
+            <textarea id="field-summary" name="summary" rows="3" maxlength="400"></textarea>
+          </label>
+
+          <div class="form-actions">
+            <button class="btn btn--primary" type="submit" data-i18n="account.send">Send for review</button>
+            <a class="btn btn--ghost" id="issue-link" hidden data-i18n="account.issue">Send as a GitHub issue</a>
+            <a class="btn btn--ghost" id="email-link" data-i18n="account.email">Email the owner</a>
+          </div>
+          <p class="status" id="submit-feedback" hidden></p>
+        </form>
+      </section>
+
+      <section class="panel" id="mine-panel" hidden>
+        <h2 data-i18n="account.mine">My submissions</h2>
+        <ul class="submission-list" id="mine-list"></ul>
+        <p class="muted small" data-i18n="account.none">No submissions yet.</p>
+      </section>
+
+      <section class="panel" id="owner-panel" hidden>
+        <h2 data-i18n="account.owner">Owner review panel</h2>
+        <p class="muted small" id="owner-hint"></p>
+        <ul class="submission-list" id="pending-list"></ul>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p data-i18n="footer.about">
+          MCmods is an independent browser. Project data and downloads come from Modrinth and CurseForge, and every
+          download points back to the original project.
+        </p>
+        <p class="muted" data-i18n="footer.legal">Not affiliated with Mojang, Microsoft, Modrinth or CurseForge.</p>
+      </div>
+    </footer>
+
+    <script src="i18n.js"></script>
+    <script src="config.js"></script>
+    <script src="auth.js"></script>
+    <script src="account.js"></script>
+  </body>
+</html>
