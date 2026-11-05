@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="MCmods — Minecraft content browser">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07120d" />
+      <stop offset="1" stop-color="#0b2418" />
+    </linearGradient>
+    <radialGradient id="glow" cx=".2" cy=".1" r=".8">
+      <stop offset="0" stop-color="#26d07c" stop-opacity=".35" />
+      <stop offset="1" stop-color="#26d07c" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect width="1200" height="630" fill="url(#glow)" />
+  <g transform="translate(80 96)">
+    <rect width="72" height="72" rx="18" fill="#26d07c" />
+    <path d="M18 54 32 24l10 10 10-20 14 40z" fill="#05110c" opacity=".85" />
+  </g>
+  <text x="80" y="250" font-family="Outfit, Segoe UI, Arial, sans-serif" font-size="92" font-weight="900" fill="#eafaf1">MCmods</text>
+  <text x="80" y="316" font-family="Outfit, Segoe UI, Arial, sans-serif" font-size="34" font-weight="600" fill="#8fd9b4">mods · resource packs · data packs · shaders · modpacks</text>
+  <text x="80" y="392" font-family="Outfit, Segoe UI, Arial, sans-serif" font-size="28" font-weight="500" fill="#6fa98c">A fast, dark-green Minecraft content browser for Java and Bedrock.</text>
+  <g font-family="Outfit, Segoe UI, Arial, sans-serif" font-size="22" font-weight="700" fill="#0b1a13">
+    <rect x="80" y="452" width="196" height="56" rx="28" fill="#26d07c" />
+    <text x="112" y="488">Modrinth + CurseForge</text>
+    <rect x="296" y="452" width="150" height="56" rx="28" fill="#8fd9b4" />
+    <text x="330" y="488">10 / minute</text>
+  </g>
+</svg>

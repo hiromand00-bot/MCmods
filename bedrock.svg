@@ -1,0 +1,7 @@
+<!-- Bedrock edition badge icon. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="Minecraft Bedrock Edition">
+  <path fill="#26d07c" d="M12 2 21 7v10l-9 5-9-5V7z" />
+  <path fill="#0b2418" d="m12 2 9 5-9 5-9-5z" opacity=".55" />
+  <path fill="#8fd9b4" d="M3 7v10l9 5V12z" opacity=".5" />
+  <path fill="#0b2418" d="M12 12v10l9-5V7z" opacity=".25" />
+</svg>
